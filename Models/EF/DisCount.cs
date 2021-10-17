@@ -7,21 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TableComment
+    public partial class DisCount
     {
-        public int IdCommnet { get; set; }
+        public int IdDi { get; set; }
         public string IdGoods { get; set; }
-        public string IdCu { get; set; }
-        public Nullable<System.DateTime> Time { get; set; }
-        public string Comment { get; set; }
-        public Nullable<byte> Quality { get; set; }
+        public Nullable<float> Price2 { get; set; }
     
-        public virtual Customer Customer { get; set; }
         public virtual Good Good { get; set; }
     }
 }

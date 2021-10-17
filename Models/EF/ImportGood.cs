@@ -7,22 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class ImportGood
     {
-        public Account()
+        public ImportGood()
         {
-            this.Customers = new HashSet<Customer>();
+            this.DetailImportGoods = new HashSet<DetailImportGood>();
         }
     
-        public string Email { get; set; }
-        public string PassWord { get; set; }
-        public Nullable<byte> Role { get; set; }
+        public string IdIm { get; set; }
+        public Nullable<System.DateTime> DateCreate { get; set; }
+        public string IdSu { get; set; }
     
-        public virtual ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<DetailImportGood> DetailImportGoods { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }

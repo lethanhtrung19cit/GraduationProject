@@ -7,17 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class DetailImportGood
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int IdDeIm { get; set; }
+        public string IdIm { get; set; }
+        public string IdGoods { get; set; }
+        public Nullable<int> Amount { get; set; }
+        public Nullable<float> SumMoney { get; set; }
+    
+        public virtual ImportGood ImportGood { get; set; }
     }
 }

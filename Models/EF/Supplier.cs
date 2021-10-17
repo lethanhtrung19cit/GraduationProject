@@ -7,19 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailImportGood
+    public partial class Supplier
     {
-        public int IdDeIm { get; set; }
-        public string IdIm { get; set; }
-        public string IdGoods { get; set; }
-        public Nullable<int> Amount { get; set; }
-        public Nullable<float> SumMoney { get; set; }
+        public Supplier()
+        {
+            this.ImportGoods = new HashSet<ImportGood>();
+        }
     
-        public virtual ImportGood ImportGood { get; set; }
+        public string IdSu { get; set; }
+        public string NameSu { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+    
+        public virtual ICollection<ImportGood> ImportGoods { get; set; }
     }
 }

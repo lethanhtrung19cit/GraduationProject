@@ -7,22 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart
+    public partial class SubImgDesign
     {
-        public Cart()
-        {
-            this.DetailCarts = new HashSet<DetailCart>();
-        }
+        public int IdSub { get; set; }
+        public Nullable<int> IdDe { get; set; }
+        public string ImageSubDe { get; set; }
     
-        public int IdCart { get; set; }
-        public string IdCu { get; set; }
-    
-        public virtual Customer Customer { get; set; }
-        public virtual ICollection<DetailCart> DetailCarts { get; set; }
+        public virtual DesignFurniture DesignFurniture { get; set; }
     }
 }

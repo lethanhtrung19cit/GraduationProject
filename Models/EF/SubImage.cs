@@ -7,21 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ListRequest
+    public partial class SubImage
     {
-        public int IdRe { get; set; }
-        public Nullable<System.DateTime> DateRe { get; set; }
-        public string NameCustomer { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Adress { get; set; }
-        public string TypeProject { get; set; }
-        public string Service { get; set; }
-        public string ContentRequest { get; set; }
+        public int IdSubImage { get; set; }
+        public string IdGoods { get; set; }
+        public string SubImage1 { get; set; }
+    
+        public virtual Good Good { get; set; }
     }
 }

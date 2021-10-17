@@ -7,19 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailOrder
+    public partial class TypeGood
     {
-        public int IdDeOrder { get; set; }
-        public Nullable<int> IdDeCart { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
+        public TypeGood()
+        {
+            this.ListTypeGoods = new HashSet<ListTypeGood>();
+        }
     
-        public virtual DetailCart DetailCart { get; set; }
+        public string IdType { get; set; }
+        public string NameType { get; set; }
+    
+        public virtual ICollection<ListTypeGood> ListTypeGoods { get; set; }
     }
 }

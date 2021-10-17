@@ -7,17 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GraduationProject.Models
+namespace GraduationProject.Models.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class DisCount
+    public partial class Account
     {
-        public int IdDi { get; set; }
-        public string IdGoods { get; set; }
-        public Nullable<float> Price2 { get; set; }
+        public Account()
+        {
+            this.Customers = new HashSet<Customer>();
+        }
     
-        public virtual Good Good { get; set; }
+        public string Email { get; set; }
+        public string PassWord { get; set; }
+        public Nullable<byte> Role { get; set; }
+    
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }
