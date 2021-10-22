@@ -16,8 +16,6 @@ namespace GraduationProject.Models.EF
     {
         public int IdDeOrder { get; set; }
         public Nullable<int> IdDeCart { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
         public string Address { get; set; }
     
         public virtual DetailCart DetailCart { get; set; }

@@ -48,8 +48,7 @@ namespace GraduationProject.Models.DAO
         }
         public List<GoodsModel> searchMenuGoods(string nameRoom, int nameSearch)
         {
-    
-            var listProductRoom = (from p in product
+             var listProductRoom = (from p in product
                                    join t in type on p.IdRoom equals t.IdType
                                    join g in goods on p.IdTypeG equals g.IdTypeG
                                    where t.IdType == nameRoom && g.IdTypeG == nameSearch

@@ -56,7 +56,7 @@
                 <input style="padding: 6px 15px;" onclick="increase()" type="button" value="+" />
             </div>
             <div style="margin-top:30px">
-                <input style="background: #e53d3d; color:white; font-weight:bold; margin-right:30px" type="button" value="Thêm vào giỏ hàng" />
+                <input onclick="addCart('@a.IdGoods')" style="background: #e53d3d; color:white; font-weight:bold; margin-right:30px" type="button" value="Thêm vào giỏ hàng" />
                 <input style="background: #e53d3d; color:white; font-weight:bold" type="button" value="Mua ngay" />
             </div>
 
@@ -72,12 +72,32 @@
     </div>
 }
 <script>
+    function addCart(IdGoods) {
+        //var stt1 = 1;
+        //var row = $('#' + IdTp);
+
+        //row.remove();
+
+        var Amount = $('#count').val();
+        $.ajax({
+            type: "POST",
+            url: "/Cart/addCart/",
+            data: { IdGoods: IdGoods, Amount: Amount },
+
+            dataType: "json",
+            success: function () {
+
+            }
+
+        });
+    }
     function increase() {
         var number = $('#count').val();
 
         var number1 = Number(number) + 1;
 
         $('#count').val(number1);
+        
     }
     function decrease() {
         var number = $('#count').val();

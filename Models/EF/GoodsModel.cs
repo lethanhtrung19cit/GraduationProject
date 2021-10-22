@@ -14,7 +14,11 @@ namespace GraduationProject.Models
         public SubImage subGoodsModel { get; set; }
         public DesignFurniture designFurnitureModel { get; set; }
         public SubImgDesign subImgModel { get; set; }
-
+        public Cart cartModel { get; set; }
+        public DetailCart detailCartModel { get; set; }
+        public Account accountModel { get; set; }
+        public Customer customerModel { get; set; }
+        public DetailOrder orderModel { get; set; }
 
     }
 }

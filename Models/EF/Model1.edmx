@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FurnitureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FurnitureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Email" />
@@ -29,6 +29,7 @@
           <Property Name="DateOfBirth" Type="date" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Phone" Type="char" MaxLength="10" />
+          <Property Name="Address" Type="ntext" />
         </EntityType>
         <EntityType Name="DesignFurniture">
           <Key>
@@ -49,9 +50,10 @@
           <Property Name="IdDeCart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCart" Type="int" />
           <Property Name="IdGoods" Type="varchar" MaxLength="10" />
-          <Property Name="Amount" Type="int" />
+          <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="SumMoney" Type="real" />
           <Property Name="Status" Type="nvarchar" MaxLength="30" />
+          <Property Name="ReadyBuy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DetailImportGoods">
           <Key>
@@ -69,8 +71,6 @@
           </Key>
           <Property Name="IdDeOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdDeCart" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="40" />
-          <Property Name="Phone" Type="char" MaxLength="10" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DisCount">
@@ -417,8 +417,7 @@ FROM [dbo].[SubImage] AS [SubImage]</DefiningQuery>
             <End Role="TableComment" EntitySet="TableComment" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FurnitureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -449,6 +448,7 @@ FROM [dbo].[SubImage] AS [SubImage]</DefiningQuery>
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
           <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Customer" FromRole="Customer" ToRole="Cart" />
           <NavigationProperty Name="TableComments" Relationship="Self.FK_TableComment_Customer" FromRole="Customer" ToRole="TableComment" />
@@ -473,9 +473,10 @@ FROM [dbo].[SubImage] AS [SubImage]</DefiningQuery>
           <Property Name="IdDeCart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdCart" Type="Int32" />
           <Property Name="IdGoods" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Int32" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="SumMoney" Type="Single" />
           <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ReadyBuy" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cart" Relationship="Self.FK_DetailCart_Cart" FromRole="DetailCart" ToRole="Cart" />
           <NavigationProperty Name="DetailOrders" Relationship="Self.FK_DetailOrder_DetailCart" FromRole="DetailCart" ToRole="DetailOrder" />
         </EntityType>
@@ -496,8 +497,6 @@ FROM [dbo].[SubImage] AS [SubImage]</DefiningQuery>
           </Key>
           <Property Name="IdDeOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdDeCart" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DetailCart" Relationship="Self.FK_DetailOrder_DetailCart" FromRole="DetailOrder" ToRole="DetailCart" />
         </EntityType>
@@ -883,6 +882,7 @@ FROM [dbo].[SubImage] AS [SubImage]</DefiningQuery>
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -908,6 +908,7 @@ FROM [dbo].[SubImage] AS [SubImage]</DefiningQuery>
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="SumMoney" ColumnName="SumMoney" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ReadyBuy" ColumnName="ReadyBuy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -927,8 +928,6 @@ FROM [dbo].[SubImage] AS [SubImage]</DefiningQuery>
               <MappingFragment StoreEntitySet="DetailOrder">
                 <ScalarProperty Name="IdDeOrder" ColumnName="IdDeOrder" />
                 <ScalarProperty Name="IdDeCart" ColumnName="IdDeCart" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
               </MappingFragment>
             </EntityTypeMapping>

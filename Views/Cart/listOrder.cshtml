@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Đơn hàng của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listOrder = (List<GraduationProject.Models.GoodsModel>)ViewBag.listOrder;
+    float sumAll = 0;
+}
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 0 20px;
+    }
+</style>
+<h2>Đơn hàng của tôi</h2>
+@if (listOrder.Count < 1)
+{
+    <div>Không có đơn hàng nào</div>
+}
+else
+{
+<table style="width:1300px">
+    <tr style="font-size:20px">
+        <th>Mã hàng</th>
+        <th>Tên hàng</th>
+        <th>Đơn giá</th>
+        <th>Số lượng</th>
+        <th>Tổng tiền</th>
+    </tr>
+
+    @foreach (var a in listOrder)
+    {
+
+        float sum = a.detailCartModel.Amount * a.goodsModel.Price;
+
+        <tr>
+            <td>@a.detailCartModel.IdDeCart</td>
+            <td>@a.goodsModel.NameGoods</td>
+            <td>@a.goodsModel.Price VNĐ</td>
+            <td>@a.detailCartModel.Amount</td>
+            <td style="color:red">@sum.ToString("0") VNĐ</td>
+        </tr>
+        sumAll += sum;
+
+
+    }
+    @sumAll=@sumAll+50000;
+</table>
+    <div style="margin-top:30px">
+            Tổng tiền tất cả hàng :
+            <h3 style="color:red">@sumAll.ToString("0") VND</h3>
+    </div>
+   }
+

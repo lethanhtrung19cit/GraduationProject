@@ -12,7 +12,8 @@ namespace GraduationProject.Controllers
     {
          public ActionResult Index()
         {
-             ViewBag.EsGoods = new GoodsDao().listSpecial();
+             
+            ViewBag.EsGoods = new GoodsDao().listSpecial();
             return View();
         }
         

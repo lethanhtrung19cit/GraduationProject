@@ -22,9 +22,10 @@ namespace GraduationProject.Models.EF
         public int IdDeCart { get; set; }
         public Nullable<int> IdCart { get; set; }
         public string IdGoods { get; set; }
-        public Nullable<int> Amount { get; set; }
+        public int Amount { get; set; }
         public Nullable<float> SumMoney { get; set; }
         public string Status { get; set; }
+        public int ReadyBuy { get; set; }
     
         public virtual Cart Cart { get; set; }
         public virtual ICollection<DetailOrder> DetailOrders { get; set; }
