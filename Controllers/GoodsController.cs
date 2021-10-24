@@ -1,4 +1,5 @@
 ﻿using GraduationProject.Models.DAO;
+using GraduationProject.Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace GraduationProject.Controllers
        
          public ActionResult Room(string id)
         {
-             
+            ViewBag.listQuality = new GoodsDao().listQuality();
              ViewBag.listGLR = new GoodsDao().listGoodsRoom(id);
             ViewBag.listProduct = new GoodsDao().listGoodsRoom(id);
             Session["Id"] = id;
@@ -20,7 +21,7 @@ namespace GraduationProject.Controllers
         }
         public ActionResult Search(int nameSearch, string nameRoom)
         {
-           
+            ViewBag.listQuality = new GoodsDao().listQuality();
             ViewBag.listProduct = new GoodsDao().listGoodsRoom(nameRoom);
             ViewBag.listGLR = new GoodsDao().searchMenuGoods(nameRoom, nameSearch);
             return View("Room");
@@ -29,12 +30,15 @@ namespace GraduationProject.Controllers
         {
             
             ViewBag.listProduct =  new GoodsDao().listGoodsRoom(room);
+            ViewBag.listQuality = new GoodsDao().listQuality();
 
             ViewBag.listGLR = new GoodsDao().searchPriceGoods(room, fromPrice, toPrice);
             return View("Room");
         }
         public ActionResult DetailGoods(string id)
         {
+            ViewBag.listCommentProduct = new GoodsDao().listCommentProduct(id);
+            ViewBag.qualityCus = new GoodsDao().qualityCus(Session["IdCu"].ToString(), id);
             ViewBag.DetailGoods = new GoodsDao().detailGoods(id);
             ViewBag.SubImageGoods = new GoodsDao().subImageGoods(id);
             return View();
@@ -55,5 +59,24 @@ namespace GraduationProject.Controllers
             ViewBag.searchProduct = new GoodsDao().searchProduct(nameProduct);
             return View();
         }
+        public ActionResult myComment()
+        {
+            ViewBag.listQuality = new GoodsDao().listQuality();
+
+            ViewBag.myComment = new GoodsDao().listComment(Session["IdCu"].ToString());
+            return View();
+        }
+        public ActionResult addCommentView(string IdGoods, string IdCu)
+        {
+            ViewBag.IdGoods = IdGoods;
+            ViewBag.IdCu = IdCu;
+            return View();
+        }
+        public ActionResult addComment(TableComment tableComment)
+        {
+            new GoodsDao().addComment(tableComment);
+            return View("myComment");
+        }
+
     }
 }

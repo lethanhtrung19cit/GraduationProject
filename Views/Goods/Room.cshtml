@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var listR = (List<GraduationProject.Models.GoodsModel>)ViewBag.listGLR;
     var listP = (List<GraduationProject.Models.GoodsModel>)ViewBag.listProduct;
+    var listQuality = (List<GraduationProject.Models.EF.TableComment>)ViewBag.listQuality;
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+
 }
  
 <style>
@@ -51,8 +54,8 @@
 
                     <input id="ses" name="room" type="hidden" value="@Session["ID"].ToString()" />
 
-                    <b>Từ</b> <input id="fromPrice" name="fromPrice" style="margin-right:10px; width:120px; padding:0" type="number" placeholder="Từ" /><br />
-                    <b> Đến</b> <input id="toPrice" name="toPrice" style="margin:10px 0 0 0; width: 120px; padding: 0" type="number" placeholder="Đến" />
+                    <b>Từ</b> <input id="fromPrice" name="fromPrice" style="margin-right:10px; width:120px; height:30px; padding:0" type="number" placeholder="Từ" /><br />
+                    <b> Đến</b> <input id="toPrice" name="toPrice" style="margin:10px 0 0 0; width: 120px; padding: 0; height:30px" type="number" placeholder="Đến" />
                     <div style="margin-top:20px">
                         @Html.ActionLink("Áp dụng", "SearchPrice", null, new { id = "SearchPrice1", Style = "padding: 15px;background: red;color: white;font-weight: bold;border-radius: 7px;" })
                     </div>
@@ -66,15 +69,44 @@
             });
         </script>
         <div class="col-md-9" style="margin-left:-50px">
-            <h2>Đồ dùng phòng khách</h2>
-
+            @if (Session["Id"].ToString() == "LR")
+            {
+                <h2>Đồ dùng phòng khách</h2>
+            }
+            else if (Session["Id"].ToString() == "DR")
+            {
+                <h2>Đồ dùng phòng ăn</h2>
+            }
+            else if (Session["Id"].ToString() == "WR")
+            {
+                <h2>Đồ dùng phòng làm việc</h2>
+            }
+            else 
+            {
+                <h2>Đồ dùng phòng ngủ</h2>
+            }
             <hr style="width:1000px" />
             <div class="row" style="width: 940px; background: #e4e2e2">
                 <div style="margin-left:20px; margin-right:10px">
 
                     @foreach (var a in listR)
                     {
+                        int count = 0; int average = 0;
+                        foreach (var a1 in listQuality)
+                        {
+                            if (a.goodsModel.IdGoods == a1.IdGoods)
+                            {
+                                count++;
+                                string quality = a1.Quality.ToString();
+                                average += int.Parse(quality);
+                            }
 
+                        }
+                        if (average != 0)
+                        {
+                            average /= count;
+
+                        }
                         var url = "/chi-tiet-san-pham/" + a.goodsModel.NameGoods + "-" + a.goodsModel.IdGoods;
                         <div class="col-md-3" style="width:300px">
                             <center>
@@ -83,8 +115,13 @@
                                     <a style="text-decoration:none" href="@url">
                                         <img src="@a.goodsModel.Image" width="300px" height="250px" />
                                         <div><h4>@a.goodsModel.NameGoods</h4></div>
-
-                                        <h3 style="color:red; text-align:center">@a.goodsModel.Price.ToString("0") VNĐ </h3>
+                                        <div style="margin-bottom:-12px">
+                                            @for (int i = 0; i < average; i++)
+                                            {
+                                                <i style="color: #b9b94f" class="fa fa-star"></i>
+                                            }
+                                        </div>
+                                        <h3 style="color:red; text-align:center">@a.goodsModel.Price.ToString("#,###", info) VNĐ </h3>
                                     </a>
 
                                 </div>

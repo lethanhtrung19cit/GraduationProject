@@ -13,15 +13,17 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <link href="~/Content/tabcontrol1.css" rel="stylesheet" />
     <link href="~/Content/bootstrap1.css" rel="stylesheet" />
-     <link href="~/Content/icon.css" rel="stylesheet" />
+    <link href="~/Content/icon.css" rel="stylesheet" />
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/tabcontrol.js"></script>
     <style>
         li.selected {
             background: yellow;
             color: red;
         }
+
         #account {
             display: none;
             position: absolute;
@@ -31,21 +33,22 @@
             min-width: 280px;
             z-index: 1;
         }
+
             #account a {
                 display: block;
                 padding: 15px;
-                font-size:17px;
+                font-size: 17px;
             }
-     </style>
-   
+    </style>
+
 </head>
 <body>
 
     <div>
-        <div class="row">
+        <div class="row" style=" background: #504444;">
             <div class="col-md-2" style="margin-left:50px">
-                <img src="~/images/logo1.jpg" />
-            </div>
+                <img src="~/images/logo.jpg" />
+             </div>
 
             <div class="col-md-6" style="width:700px; margin-left:10px">
                      <h1 style="color: #bf8c1b; text-shadow: 2px 2px; padding-left:70px">ĐỒ NỘI THẤT UNIQUE DECOR</h1>
@@ -80,11 +83,11 @@
                                 <div onclick="user()" style="cursor:pointer; color: orangered; font-weight: bold; width: 180px; height: 45px;">
                                     @Session["NameCu"].ToString()
                                 </div>
-                                <div id="account" onmouseleave="hideFunction()">
-                                    <a href="@Url.Action("Information", "Account", new { id="LR"})"><i style="margin-right:10px" class="fa fa-user"></i>Quản lý tài khoản</a>
-                                    <a href="@Url.Action("listOrder", "Cart", new { id="DR"})"><i style="margin-right:10px" class="fa fa-shopping-bag"></i>Quản lý đơn hàng</a>
-                                    <a href="@Url.Action("Room", "Goods", new { id="BR"})"><i style="margin-right:10px" class="fa fa-comment"></i>Nhận xét của tôi</a>
-                                    <a href="@Url.Action("Room", "Goods", new { id="WR"})"><i style="margin-right:10px" class="fa fa-external-link-alt"></i>Đăng xuất</a>
+                                <div style="z-index:1000" id="account" onmouseleave="hideFunction()">
+                                    <a href="@Url.Action("Information", "Account")"><i style="margin-right:10px" class="fa fa-user"></i>Quản lý tài khoản</a>
+                                    <a href="@Url.Action("listOrder", "Cart")"><i style="margin-right:10px" class="fa fa-shopping-bag"></i>Quản lý đơn hàng</a>
+                                    <a href="@Url.Action("myComment", "Goods")"><i style="margin-right:10px" class="fa fa-comment"></i>Nhận xét của tôi</a>
+                                    <a href="@Url.Action("Login", "Account")"><i style="margin-right:10px" class="fa fa-external-link-alt"></i>Đăng xuất</a>
                                 </div>
                             </div>
                          }
@@ -125,7 +128,7 @@
                             DANH MỤC SẢN PHẨM
                             <i class="fa fa-caret-down"></i>
                         </div>
-                        <div class="dropdown-content">
+                        <div class="dropdown-content" style="z-index:1000">
                             <a href="@Url.Action("Room", "Goods", new { id="LR"})">phòng khách</a>
                             <a href="@Url.Action("Room", "Goods", new { id="DR"})">phòng ăn</a>
                             <a href="@Url.Action("Room", "Goods", new { id="BR"})">phòng ngủ</a>

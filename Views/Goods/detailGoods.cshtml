@@ -4,9 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var detailGoods = (List<GraduationProject.Models.EF.Good>)ViewBag.DetailGoods;
     var subImageGoods = (List<GraduationProject.Models.GoodsModel>)ViewBag.SubImageGoods;
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var listCommentProduct = (List<GraduationProject.Models.GoodsModel>)ViewBag.listCommentProduct;
+    var qualityCus = (List<GraduationProject.Models.EF.TableComment>)ViewBag.qualityCus;
 }
-
-
 
 @foreach (var a in detailGoods)
 {
@@ -36,7 +37,7 @@
 
         <div class="col-md-5" style="font-size:17px; margin-left:100px">
             <h2 style="color:red">@a.NameGoods</h2>
-            <h3 style="color:red">@a.Price.ToString("0") VNĐ</h3>
+            <h3 style="color:red">@a.Price.ToString("#,###", info) VNĐ</h3>
             <div>
                 <b>Kích thước:</b> @a.Size
             </div>
@@ -59,26 +60,51 @@
                 <input onclick="addCart('@a.IdGoods')" style="background: #e53d3d; color:white; font-weight:bold; margin-right:30px" type="button" value="Thêm vào giỏ hàng" />
                 <input style="background: #e53d3d; color:white; font-weight:bold" type="button" value="Mua ngay" />
             </div>
-
+            <div id="notify" style="display:none; color:red">
+                Thêm vào giỏ hàng thành công
+            </div>
         </div>
     </div>
     <div style="margin:0 0 50px -30px">
         <h3>MÔ TẢ SẢN PHẨM</h3> <br />
         @a.Recommend
     </div>
-    <div style="margin:0 0 0px -30px">
+    <div style="margin:0 0 0px -30px; font-size:18px">
         <h3>ĐÁNH GIÁ CHẤT LƯỢNG</h3> <br />
+        @foreach (var item in listCommentProduct)
+        { 
+            <div>
+                <b>@item.customerModel.NameCu</b> 
+            </div>
+            <div>
+                @item.tableCommentModel.Time
+            </div>
+            <div>
+                 @foreach (var q in qualityCus)
+                    {
+                        <div>
 
+                            @for (int i = 0; i < q.Quality; i++)
+                            {
+                                <i style="color: #b9b94f" class="fa fa-star"></i>
+                            }
+                        </div>
+                        <div>
+                            @q.Comment
+                        </div>
+                    }
+               
+            </div>
+             
+        }
     </div>
 }
 <script>
     function addCart(IdGoods) {
-        //var stt1 = 1;
-        //var row = $('#' + IdTp);
+        document.getElementById("notify").style.display = "block";
+         
 
-        //row.remove();
-
-        var Amount = $('#count').val();
+         var Amount = $('#count').val();
         $.ajax({
             type: "POST",
             url: "/Cart/addCart/",
@@ -86,7 +112,7 @@
 
             dataType: "json",
             success: function () {
-
+                
             }
 
         });

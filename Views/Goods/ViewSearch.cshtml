@@ -3,6 +3,8 @@
     ViewBag.Title = "ViewSearch";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var viewSearch = (List<GraduationProject.Models.EF.Good>)ViewBag.searchProduct;
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+
 }
 <div>
     <h2 style="color:red">Từ khóa tìm kiếm: @ViewBag.nameProduct</h2>
@@ -25,7 +27,7 @@
                         <img src="@a.Image" width="250px" height="200px" />
                         <div><h4 style="text-align:center">@a.NameGoods</h4></div>
 
-                        <h3 style="color:red; text-align:center">@a.Price.ToString("0") VNĐ </h3>
+                        <h3 style="color:red; text-align:center">@a.Price.ToString("#,###", info) VNĐ </h3>
                     </a>
                 </div>
             }

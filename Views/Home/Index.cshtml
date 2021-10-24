@@ -2,6 +2,8 @@
     ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var listEsGoods = (List<GraduationProject.Models.GoodsModel>)ViewBag.EsGoods;
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+
 }
  
 <div>
@@ -53,7 +55,7 @@
 
     <div style="margin-top:20px">
         <div>
-            <h2 style="color:#ff0000">Sản phẩm tiêu biểu</h2>
+            <h2 style="color:#ff0000">Sản Phẩm Mới Nhất</h2>
             <hr />
         </div>
 
@@ -78,7 +80,7 @@
                             <img src="@a.goodsModel.Image" width="450px" height="300px" />
                             <div><h4>@a.goodsModel.NameGoods</h4></div>
 
-                            <h3 style="color:red; text-align:center">@a.goodsModel.Price.ToString("0") VNĐ </h3>
+                            <h3 style="color:red; text-align:center">@a.goodsModel.Price.ToString("#,###", info) VNĐ </h3>
                         </a>
 
                     }
@@ -102,7 +104,7 @@
     </div>
     <div style="margin-top:20px">
         <div>
-            <h2 style="color:#ff0000">Các mẫu thiết kế</h2>
+            <h2 style="color:#ff0000">Các Mẫu Thiết Kế</h2>
             <hr />
         </div>
 

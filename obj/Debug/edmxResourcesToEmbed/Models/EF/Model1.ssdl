@@ -67,7 +67,6 @@
     <Property Name="IdDeOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdDeCart" Type="int" />
     <Property Name="Address" Type="nvarchar" MaxLength="50" />
-    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="DisCount">
     <Key>

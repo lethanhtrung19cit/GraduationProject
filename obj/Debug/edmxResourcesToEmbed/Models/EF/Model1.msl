@@ -73,7 +73,6 @@
           <ScalarProperty Name="IdDeOrder" ColumnName="IdDeOrder" />
           <ScalarProperty Name="IdDeCart" ColumnName="IdDeCart" />
           <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

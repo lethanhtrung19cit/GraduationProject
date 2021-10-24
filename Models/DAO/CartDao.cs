@@ -1,7 +1,7 @@
 ﻿using GraduationProject.Models.EF;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -86,7 +86,7 @@ namespace GraduationProject.Models.DAO
                         customerModel=cu
                     }).ToList();
         }
-        public List<GoodsModel> listOrder(string IdCu)
+        public List<GoodsModel> listOrderAll(string IdCu)
         {
              return (from o in detailOrders 
                     join c in detailCarts on o.IdDeCart equals c.IdDeCart
@@ -95,7 +95,30 @@ namespace GraduationProject.Models.DAO
 
                      join g in goods on c.IdGoods equals g.IdGoods
 
-                    where ca.IdCu == IdCu && c.Status == "1"
+                    where ca.IdCu == IdCu && c.Status != "0"
+                    select new GoodsModel
+                    {
+                        cartModel = ca,
+                        detailCartModel = c,
+                        goodsModel = g,
+                        orderModel=o,
+                        customerModel=cu
+                    }).ToList();
+        }
+        public List<string> comment(string IdCu)
+        {
+            return furnitureEntities.TableComments.Where(x => x.IdCu == IdCu).Select(x=>x.IdGoods).ToList();
+        }
+        public List<GoodsModel> listOrder(string IdCu, string status)
+        {
+             return (from o in detailOrders 
+                    join c in detailCarts on o.IdDeCart equals c.IdDeCart
+                    join ca in carts on c.IdCart equals ca.IdCart
+                     join cu in customers on ca.IdCu equals cu.IdCu
+
+                     join g in goods on c.IdGoods equals g.IdGoods
+
+                    where ca.IdCu == IdCu && c.Status == status
                     select new GoodsModel
                     {
                         cartModel = ca,
@@ -125,7 +148,7 @@ namespace GraduationProject.Models.DAO
              var detail = furnitureEntities.DetailCarts.Find(detailCart.IdCart);
             detail.Amount = detailCart.Amount;
             detail.SumMoney = detailCart.SumMoney;
-             furnitureEntities.Entry(detail).State=EntityState.Modified;
+             furnitureEntities.Entry(detail).State= EntityState.Modified;
              furnitureEntities.SaveChanges();
         }
         public void deleteCart(DetailCart detailCart)

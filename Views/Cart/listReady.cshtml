@@ -28,7 +28,8 @@
                 <td style="font-size:17px"><img src="@a.goodsModel.Image" style=" width: 200px; height: 150px; border: solid 2px #996565;" /> @a.goodsModel.NameGoods</td>
                 <td>@a.goodsModel.Price.ToString("0") VND</td>
                 <td>
-                     <input style="width:50px; padding:7px" id="@a.detailCartModel.IdGoods" type="text" value="@a.detailCartModel.Amount" />
+                    @a.detailCartModel.Amount
+                     <input style="width:50px; padding:7px" id="@a.detailCartModel.IdGoods" type="hidden" value="@a.detailCartModel.Amount" />
                  </td>
                 <td data-id="@sumPrice.ToString("0")" style="color: #fb471e; font-weight:bold">@sumPrice.ToString("0") VND</td>
                 
@@ -41,9 +42,17 @@
         @foreach (var a in listReady)
         {
             <div style="color:red; font-size:19px">Địa Chỉ Nhận Hàng</div>
-            <b>@a.customerModel.NameCu</b> 
-            <b>@a.customerModel.Phone</b>
-            @a.customerModel.Address
+            <div style="font-size:18px">
+
+                <b>@a.customerModel.NameCu</b>
+                <b>@a.customerModel.Phone</b>
+                @a.customerModel.Address
+                @if (a.customerModel.Address == null)
+                {
+                    <a href="@Url.Action("Information", "Account")">Thiết lập địa chỉ</a>
+                }
+            </div>
+            
         }
         
     </div>
@@ -57,10 +66,12 @@
         Tổng tiền hàng : @sumPrice1.ToString("0")<br />
         Phí vận chuyển : 50000 VNĐ <br />
         Tổng thanh toán: <label style="color:red">@sumP.ToString("0") VNĐ</label>
-        @using (Html.BeginForm("updateStatusCart", "Cart"))
+        @using (Html.BeginForm("buyProduct", "Cart"))
         {
             foreach (var item in listReady)
             {
+                <input name="IdGoods" type="hidden" value="@item.goodsModel.IdGoods"/>
+                <input name="Amount" type="hidden" value="@item.detailCartModel.Amount"/>
                 <input name="IdDeCart" type="hidden" value="@item.detailCartModel.IdDeCart"/>
                 <input name="Address" type="hidden" value="@item.customerModel.Address"/>
             }

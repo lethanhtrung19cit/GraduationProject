@@ -1,6 +1,7 @@
 ﻿using GraduationProject.Models.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -10,12 +11,16 @@ namespace GraduationProject.Models.DAO
     {
         FurnitureEntities furnitureEntities = new FurnitureEntities();
         List<Good> goods = new FurnitureEntities().Goods.ToList();
+        List<Customer> customers = new FurnitureEntities().Customers.ToList();
         List<TypeGood> type = new FurnitureEntities().TypeGoods.ToList();
         List<ListTypeGood> product = new FurnitureEntities().ListTypeGoods.ToList();
         List<SubImage> subGoods = new FurnitureEntities().SubImages.ToList();
         List<DisCount> disCount = new FurnitureEntities().DisCounts.ToList();
         List<ImportGood> importGoods = new FurnitureEntities().ImportGoods.ToList();
         List<DetailImportGood> detailImportGoods = new FurnitureEntities().DetailImportGoods.ToList();
+        List<TableComment> tableComments = new FurnitureEntities().TableComments.ToList();
+        List<Cart> carts = new FurnitureEntities().Carts.ToList();
+        List<DetailCart> detailCarts = new FurnitureEntities().DetailCarts.ToList();
         public List<GoodsModel> listSpecial()
         {
             var maxDate = furnitureEntities.ImportGoods.Max(a => a.DateCreate);
@@ -36,7 +41,7 @@ namespace GraduationProject.Models.DAO
              var listProductRoom = (from p in product
                                     join t in type on p.IdRoom equals t.IdType
                                     join g in goods on p.IdTypeG equals g.IdTypeG
-                                    where t.IdType == id
+                                     where t.IdType == id
                                     select new GoodsModel
                                     {
                                         goodsModel = g,
@@ -44,6 +49,7 @@ namespace GraduationProject.Models.DAO
                                         typeModel = t
                                     }
                                    ).ToList();
+            
             return listProductRoom;
         }
         public List<GoodsModel> searchMenuGoods(string nameRoom, int nameSearch)
@@ -110,6 +116,53 @@ namespace GraduationProject.Models.DAO
 
              }
              ).ToList();
+        }
+        public void updateAmountGooods(string IdGoods, int amount)
+        {
+            var goods = furnitureEntities.Goods.Find(IdGoods);
+            goods.Amount = goods.Amount - amount;
+             furnitureEntities.Entry(goods).State = (System.Data.Entity.EntityState)EntityState.Modified;
+            furnitureEntities.SaveChanges();
+        }
+        public List<TableComment> listQuality()
+        {
+            return furnitureEntities.TableComments.ToList();
+             
+        }
+        public List<TableComment> qualityCus(string IdCu, string IdGoods)
+        {
+            return furnitureEntities.TableComments.Where(x=>x.IdCu==IdCu && x.IdGoods==IdGoods).ToList();
+             
+        }
+        public List<GoodsModel> listComment(string IdCu)
+        {
+            return (from t in tableComments join g in goods
+                    on t.IdGoods equals g.IdGoods
+                    where t.IdCu == IdCu
+                    select new GoodsModel
+                    {
+                        goodsModel = g,
+                        tableCommentModel = t
+                    }
+                    ).ToList();
+                    
+        }
+        public void addComment(TableComment tableComment)
+        {
+            furnitureEntities.TableComments.Add(tableComment);
+            furnitureEntities.SaveChanges();
+        }
+        public List<GoodsModel> listCommentProduct(string IdGoods)
+        {
+            return (from c in customers
+                    join t in tableComments on c.IdCu equals t.IdCu
+                    where t.IdGoods==IdGoods
+                    select new GoodsModel
+                    {
+                        customerModel = c,
+                        tableCommentModel = t
+                    }).ToList();
+                    
         }
     }
 }

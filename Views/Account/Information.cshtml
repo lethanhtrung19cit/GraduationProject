@@ -37,54 +37,90 @@
             <div class="col-md-8">
                 Ngày
                 <select name="Day">
-
-                    @for (int i = 1; i <= 31; i++)
+                    @if (a.customerModel.DateOfBirth != null)
                     {
-                        if (i != a.customerModel.DateOfBirth.Value.Day)
+                        for (int i = 1; i <= 31; i++)
                         {
-                            <option value="@i">@i</option>
+                            if (i != a.customerModel.DateOfBirth.Value.Day)
+                            {
+                                <option value="@i">@i</option>
 
+                            }
+                            else
+                            {
+                                <option selected="selected" value="@a.customerModel.DateOfBirth.Value.Day">@a.customerModel.DateOfBirth.Value.Day</option>
+
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        for (int i = 1; i <= 31; i++)
                         {
-                            <option selected="selected" value="@a.customerModel.DateOfBirth.Value.Day">@a.customerModel.DateOfBirth.Value.Day</option>
+                             
+                                <option value="@i">@i</option>
 
+                             
                         }
                     }
                 </select>
                 Tháng
                 <select name="Month">
 
-
-                    @for (int i = 1; i <= 12; i++)
+                    @if (a.customerModel.DateOfBirth != null)
                     {
-                        if (i != a.customerModel.DateOfBirth.Value.Month)
+                        for (int i = 1; i <= 12; i++)
                         {
-                            <option value="@i">@i</option>
+                            if (i != a.customerModel.DateOfBirth.Value.Month)
+                            {
+                                <option value="@i">@i</option>
 
+                            }
+                            else
+                            {
+                                <option selected="selected" value="@a.customerModel.DateOfBirth.Value.Month">@a.customerModel.DateOfBirth.Value.Month</option>
+
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        for (int i = 1; i <= 12; i++)
                         {
-                            <option selected="selected" value="@a.customerModel.DateOfBirth.Value.Month">@a.customerModel.DateOfBirth.Value.Month</option>
+                             
+                                <option value="@i">@i</option>
 
+                             
                         }
                     }
                 </select>
                 Năm
                 <select name="Year">
 
-
-                    @for (int i = 1900; i <= int.Parse(DateTime.Now.ToString("yyyy")); i++)
+                    @if (a.customerModel.DateOfBirth != null)
                     {
-                        if (i != a.customerModel.DateOfBirth.Value.Year)
+                        for (int i = 1900; i <= int.Parse(DateTime.Now.ToString("yyyy")); i++)
                         {
-                            <option value="@i">@i</option>
+                            if (i != a.customerModel.DateOfBirth.Value.Year)
+                            {
+                                <option value="@i">@i</option>
 
+                            }
+                            else
+                            {
+                                <option selected="selected" value="@a.customerModel.DateOfBirth.Value.Year">@a.customerModel.DateOfBirth.Value.Year</option>
+
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        for (int i = 1900; i <= int.Parse(DateTime.Now.ToString("yyyy")); i++)
                         {
-                            <option selected="selected" value="@a.customerModel.DateOfBirth.Value.Year">@a.customerModel.DateOfBirth.Value.Year</option>
 
+                                <option value="@i">@i</option>
+
+                            
                         }
                     }
                 </select>

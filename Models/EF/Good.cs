@@ -18,6 +18,7 @@ namespace GraduationProject.Models.EF
         {
             this.DisCounts = new HashSet<DisCount>();
             this.SubImages = new HashSet<SubImage>();
+            
             this.TableComments = new HashSet<TableComment>();
         }
     

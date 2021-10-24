@@ -77,7 +77,6 @@
     <Property Name="IdDeOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IdDeCart" Type="Int32" />
     <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" />
     <NavigationProperty Name="DetailCart" Relationship="Self.FK_DetailOrder_DetailCart" FromRole="DetailOrder" ToRole="DetailCart" />
   </EntityType>
   <EntityType Name="DisCount">

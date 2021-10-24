@@ -19,6 +19,7 @@ namespace GraduationProject.Models
         public Account accountModel { get; set; }
         public Customer customerModel { get; set; }
         public DetailOrder orderModel { get; set; }
+        public TableComment tableCommentModel { get; set; }
 
     }
 }

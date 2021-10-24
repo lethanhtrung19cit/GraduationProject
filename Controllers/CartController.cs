@@ -20,13 +20,14 @@ namespace GraduationProject.Controllers
             ViewBag.detailCart= new CartDao().DetailCart(Session["IdCu"].ToString());
             return View();
         }
-        public ActionResult updateStatusCart(int IdDeCart, string Address)
+        public ActionResult buyProduct(string IdGoods, int Amount, int IdDeCart, string Address)
         {
             DetailOrder detailOrder = new DetailOrder();
             detailOrder.IdDeCart = IdDeCart;
             detailOrder.Address = Address;
             new CartDao().addDetailOrder(detailOrder);
             new CartDao().updateStatusCart();
+            //new GoodsDao().updateAmountGooods(IdGoods, Amount);
             ViewBag.detailCart= new CartDao().DetailCart(Session["IdCu"].ToString());
 
             return View("DetailCart");
@@ -51,9 +52,16 @@ namespace GraduationProject.Controllers
             ViewBag.listReadyBuy = new CartDao().listReadyBuy(Cu); 
             return View();
         }
+        
         public ActionResult listOrder()
         {
-            ViewBag.listOrder = new CartDao().listOrder(Session["IdCu"].ToString());
+            string IdCu = Session["IdCu"].ToString();
+            ViewBag.myComment = new CartDao().comment(IdCu);
+            ViewBag.listOrderAll = new CartDao().listOrderAll(IdCu);
+            ViewBag.listOrderPending = new CartDao().listOrder(IdCu, "1");
+            ViewBag.listOrderDelivering = new CartDao().listOrder(IdCu, "2");
+            ViewBag.listOrderDelivered = new CartDao().listOrder(IdCu, "3");
+            ViewBag.listOrderCancelled = new CartDao().listOrder(IdCu, "4");
             return View();
         }
         public void updateCart(string IdGoods, string Amount, string SumMoney)
@@ -77,7 +85,7 @@ namespace GraduationProject.Controllers
             }
             DetailCart detailCart = new DetailCart();
             int idCart= furniture.Carts.Where(a => a.IdCu == IdCu).Select(x=>x.IdCart).FirstOrDefault();
-            string idGoods = furniture.DetailCarts.Where(a => a.IdGoods == IdGoods).Select(x => x.IdGoods).FirstOrDefault();
+            string idGoods = furniture.DetailCarts.Where(a => a.IdGoods == IdGoods && a.IdCart==IdCart).Select(x => x.IdGoods).FirstOrDefault();
             if (idGoods!=IdGoods)
             {
                 detailCart.IdCart = idCart;
@@ -94,6 +102,7 @@ namespace GraduationProject.Controllers
                 detailCart.SumMoney = detailCart.Amount * price;
                 new CartDao().updateDetailCart(detailCart);
             }
+             
         }
         public void deleteCart(string IdDeCart)
         {
